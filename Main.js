@@ -2,7 +2,11 @@ const WHATSAPP = "5527999234176";
 const INSTAGRAM = "https://instagram.com/bompracachorrovv";
 
 function scrollToSection(id) {
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' });
+    closeMenu(); // Garante fechar o menu se estiver no mobile
+  }
 }
 
 function openWhatsApp(msg = "Olá! Vim pelo site") {
@@ -13,40 +17,52 @@ function openInstagram() {
   window.open(INSTAGRAM, "_blank");
 }
 
-/* reveal animation */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) e.target.classList.add("active");
-  });
-});
-
-document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-
-
-// Menu toggle for mobile
+/* --- Lógica do Menu Mobile (Drawer) --- */
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
+const body = document.body;
 
-if (menuToggle) {
-  menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    const isExpanded = navLinks.classList.contains('active');
-    menuToggle.setAttribute('aria-expanded', isExpanded);
-  });
+function toggleMenu() {
+  const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+  menuToggle.setAttribute('aria-expanded', !isExpanded);
+  navLinks.classList.toggle('active');
+  
+  // UX Pro: Trava o scroll da página quando o menu está aberto
+  body.style.overflow = !isExpanded ? 'hidden' : '';
 }
 
-// Close menu when clicking outside
+function closeMenu() {
+  menuToggle.setAttribute('aria-expanded', 'false');
+  navLinks.classList.remove('active');
+  body.style.overflow = '';
+}
+
+if (menuToggle) {
+  menuToggle.addEventListener('click', toggleMenu);
+}
+
+// Fecha o menu ao clicar fora (opcional, mas recomendado)
 document.addEventListener('click', (e) => {
-  if (!e.target.closest('.navbar')) {
-    navLinks.classList.remove('active');
-    if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
-  }
+    if (navLinks.classList.contains('active') && 
+        !navLinks.contains(e.target) && 
+        !menuToggle.contains(e.target)) {
+        closeMenu();
+    }
 });
 
-// Close menu when pressing Escape
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && navLinks.classList.contains('active')) {
-    navLinks.classList.remove('active');
-    if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
-  }
-});
+/* --- Animação de Scroll (Intersection Observer) --- */
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: "0px 0px -50px 0px" // Dispara um pouco antes de aparecer totalmente
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("active");
+      observer.unobserve(entry.target); // Anima apenas uma vez para performance
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll(".reveal").forEach(el => observer.observe(el));

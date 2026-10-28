@@ -4,65 +4,127 @@
   <meta charset="UTF-8" />
   <title>Bom Pra Cachorro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="Styles.css" />
-  <!-- Para navegadores modernos -->
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/logo-small.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="./assets/logo-small.png" />
-
-  <!-- Para Apple devices -->
   <link rel="apple-touch-icon" sizes="180x180" href="./assets/logo-small.png" />
 </head>
 <body>
 
+<div class="noise-overlay"></div>
+
 <nav class="navbar" role="navigation" aria-label="Navegação principal">
-  <a href="#" aria-label="Página inicial">
-    <img src="./assets/logo-small.png" class="logo" alt="Logo Bom Pra Cachorro" />
-  </a>
-  <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-  <div class="nav-links">
-    <button onclick="scrollToSection('sobre')" aria-label="Ir para seção sobre">Sobre</button>
-    <button onclick="scrollToSection('ajudar')" aria-label="Ir para seção como ajudar">Como ajudar</button>
-    <a href="https://instagram.com/bompracachorrovv" target="_blank" rel="noopener noreferrer" aria-label="Visitar nosso Instagram (abre em nova aba)">Instagram</a>
+  <div class="nav-container">
+    <a href="#" aria-label="Página inicial" class="brand-link">
+      <img src="./assets/logo-small.png" class="logo" alt="Logo Bom Pra Cachorro" />
+    </a>
+
+    <div class="nav-links" id="navLinks">
+      <button onclick="scrollToSection('sobre')" class="nav-item">Sobre</button>
+      <button onclick="scrollToSection('ajudar')" class="nav-item">Como ajudar</button>
+      <a href="https://instagram.com/bompracachorrovv" target="_blank" class="nav-item" rel="noopener noreferrer">
+        Instagram
+      </a>
+      <button class="btn primary mobile-only-btn" onclick="openWhatsApp('Gostaria de fazer uma doação')">
+        Doar agora
+      </button>
+    </div>
+
+    <div class="nav-actions">
+      <button class="btn primary desktop-only-btn" onclick="openWhatsApp('Gostaria de fazer uma doação')">
+        Doar agora 
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <svg class="hamburger" viewBox="0 0 100 100" width="32">
+          <rect class="line top" width="80" height="8" x="10" y="25" rx="4"></rect>
+          <rect class="line middle" width="80" height="8" x="10" y="45" rx="4"></rect>
+          <rect class="line bottom" width="80" height="8" x="10" y="65" rx="4"></rect>
+        </svg>
+      </button>
+    </div>
   </div>
-  <button class="btn primary" onclick="openWhatsApp('Gostaria de fazer uma doação')" aria-label="Fazer uma doação via WhatsApp">
-    Doar agora
-  </button>
 </nav>
 
 <section class="hero" role="banner">
-  <img class="hero-logo" src="./assets/logo_completa.png" alt="Logo completa Bom Pra Cachorro" />
-  <h1>Cada vida <span>importa</span></h1>
-  <p>Resgatamos, cuidamos e encontramos lares amorosos para animais abandonados.</p>
-</section>
-
-<section class="stats" role="region" aria-label="Ações principais">
-  <button class="btn primary" onclick="openInstagram()" aria-label="Ver animais disponíveis para adoção no Instagram">Ver animais</button>
-  <button class="btn outline" onclick="openWhatsApp()" aria-label="Entrar em contato via WhatsApp">Fale conosco</button>
-</section>
-
-<section id="sobre" class="about reveal" role="region" aria-labelledby="sobre-heading">
-  <div>
-    <h2 id="sobre-heading">A Bom Pra Cachorro nasceu do amor incondicional pelos animais.</h2>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  
+  <div class="hero-content">
+    <div class="logo-wrapper reveal">
+       <img class="hero-logo" src="./assets/logo_completa.png" alt="Logo completa Bom Pra Cachorro" />
+    </div>
+    
+    <h1 class="reveal delay-1">Cada vida <span class="highlight">importa</span></h1>
+    <p class="reveal delay-2">Resgatamos, cuidamos e encontramos lares amorosos para animais que foram esquecidos.</p>
+    
+    <div class="hero-actions reveal delay-3">
+      <button class="btn primary big" onclick="openInstagram()">
+        Ver animais
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      </button>
+      <button class="btn outline big" onclick="openWhatsApp()">
+        Fale conosco
+      </button>
+    </div>
   </div>
 </section>
 
-<section id="ajudar" class="help reveal" role="region" aria-labelledby="ajudar-heading">
-  <h2 id="ajudar-heading" class="sr-only">Como você pode ajudar</h2>
-  <button class="card" onclick="openInstagram()" aria-label="Adotar um animal">Adote</button>
-  <button class="card" onclick="openWhatsApp('Quero doar')" aria-label="Fazer uma doação">Doe</button>
-  <button class="card" onclick="openWhatsApp('Quero ser voluntário')" aria-label="Tornar-se voluntário">Voluntarie-se</button>
+<section id="sobre" class="about reveal" role="region" aria-labelledby="sobre-heading">
+  <div class="about-container">
+    <div class="quote-mark">“</div>
+    <h2 id="sobre-heading">A Bom Pra Cachorro nasceu do <span class="text-gradient">amor incondicional</span> e da vontade de mudar destinos.</h2>
+  </div>
 </section>
 
-<footer role="contentinfo">
-  <p>© 2026 Bom Pra Cachorro - Resgatando vidas com amor</p>
+<section id="ajudar" class="help" role="region" aria-labelledby="ajudar-heading">
+  <div class="section-header reveal">
+    <h2 id="ajudar-heading">Como você pode ajudar?</h2>
+    <p>Pequenas ações salvam vidas todos os dias.</p>
+  </div>
+  
+  <div class="cards-grid">
+    <button class="card reveal delay-1" onclick="openInstagram()">
+      <div class="icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      </div>
+      <h3>Adote</h3>
+      <p>Dê um lar e ganhe um melhor amigo para a vida toda.</p>
+      <div class="arrow">→</div>
+    </button>
+    
+    <button class="card reveal delay-2" onclick="openWhatsApp('Quero doar')">
+      <div class="icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+      </div>
+      <h3>Doe</h3>
+      <p>Qualquer valor ajuda na ração e medicamentos.</p>
+      <div class="arrow">→</div>
+    </button>
+    
+    <button class="card reveal delay-3" onclick="openWhatsApp('Quero ser voluntário')">
+      <div class="icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      </div>
+      <h3>Seja Voluntário</h3>
+      <p>Doe seu tempo e carinho para quem mais precisa.</p>
+      <div class="arrow">→</div>
+    </button>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Bom Pra Cachorro</p>
 </footer>
 
-<button class="floating-whatsapp" onclick="openWhatsApp()" aria-label="Abrir conversa no WhatsApp">
-  <img src="./assets/whatsapp.png" alt="" role="presentation" />
+<button class="floating-whatsapp" onclick="openWhatsApp()" aria-label="WhatsApp">
+  <img src="./assets/whatsapp.png" alt="WhatsApp" />
 </button>
 
 <script src="Main.js"></script>
